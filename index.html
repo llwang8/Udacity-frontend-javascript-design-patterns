@@ -18,6 +18,32 @@
 	
 	<script src="js/jQuery.js"></script>
 
+	<script type="text/javascript">
+	var count = 0;
+
+	function countClick(){
+	//$('#msg').click(function() {
+  	//the element has been clicked... do stuff here
+  		count ++;
+  		//alert(count);
+  		document.getElementById("msg").innerHTML = "Count: " + count;
+  		//document.getElementById("demo").innerHTML = "Count: " + count;
+  	}
+
+  	//function countClick(){
+  	//	var elem = document.getElementById('clickbtn');
+	//	elem.addEventListener('click', function(){
+  			//the element has been clicked... do stuff here
+  	//		count ++;
+  	//		document.getElementById("#msg").innerHTML = count;
+
+	//	}, false);
+
+	//}
+
+//});
+
+</script>
 
 </head>
 
@@ -27,32 +53,13 @@
 	
 	<img id="cat" src="images/cat-staring.jpg" alt="cat" style="width:540px; height:406px"><br><br>
 	<div class="row">
-		<button id="clickbtn" type="button" class="btn btn-primary" onClick="countClick()">Click Me!</button>
-		<div id="showcount"></div>
+		<button id="clickbtn" type="button" class="btn btn-primary" onClick="countClick()">Click Me to Like Me!</button>
+		<p id="msg"></p>
+
 	</div>
 </div>
 
-<script type="text/javascript">
-	var count = 0;
 
-	//$('#msg').click(function() {
-  	//the element has been clicked... do stuff here
-  		//count ++;
-  		//$(document).getElementById("#msg").innerHTML = count;
-  	function countClick(){
-  		var elem = document.getElementById('clickbtn');
-		elem.addEventListener('click', function(){
-  			//the element has been clicked... do stuff here
-  			count ++;
-  			document.getElementById("#msg").innerHTML = count;
-
-		}, false);
-
-	}
-
-//});
-
-</script>
 
 </body>
 
