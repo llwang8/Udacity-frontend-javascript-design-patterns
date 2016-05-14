@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <!-- Latest compiled and minified CSS
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
+    </script>
+
+    <!-- Latest compiled JavaScript
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.32.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/jQuery.js"></script>
+
+</head>
+
+<body>
+
+<div class="text-center">
+    <div class="row">
+        <div class="center">
+             <button id="2" type="button" class="button" onClick=countClick(this.id)>cat name
+             </button>
+        </div>
+        <div class="center">
+            <p id="catName"></p>
+            <img id="cat" src="images/cat-staring.jpg" alt="cat" >
+            <br><br>
+            <button id="2" type="button" class="button" onClick=countClick(this.id)>Click Me to Like Me!
+            </button>
+            <p id="msg"></p>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var count = 0,
+        images = ["cat-halfshow.jpg",
+                  "cat-staring.jpg",
+                  "cat-liedown.jpg",
+                  "cat-bounce.png",
+                  "cat-glancing.jpg",
+                  "cat-looking.jpg",
+                  "cat-newhome.jpg",
+                  "cat-reading.jpg"
+
+                  ],
+        names =  ["Cat Peeking",
+                  "Cat Menacing",
+                  "Cat in-waiting",
+                  "Cat Bouncing",
+                  "Cat Glancing",
+                  "Cat Looking",
+                  "Cat in new home",
+                  "Cat Reading"
+
+                  ],
+        count = {};
+    //window.onload = function(){
+        function countClick(id){
+          //for (var num = 0; num < 3; num++){
+            var num = id;
+            var elem = document.getElementById(String(num));
+            if (elem){
+                elem.addEventListener('click', function(numCopy){
+                    count[numCopy] = count[numCopy] + 1 || 1;
+                    document.getElementById('catName' + numCopy).innerHTML = names[parseInt(numCopy) - 1];
+                    document.getElementById('msg' + numCopy).innerHTML = "Like: " + count[numCopy];
+                }(num));
+            }
+          //}
+        }
+    //}
+
+    $(function(){
+
+      var model = {
+        init: function(){},
+
+        addCat: function(cat){}
+
+      };
+
+      var octopus = {
+        init: function(){
+          model.init();
+          view.init();
+        },
+
+        countClick: function(){},
+        getCat: function{}
+
+      };
+
+      var view = {
+        init: function(){},
+
+        render: function(){}
+      };
+
+      octopus.init();
+
+    });
+</script>
+
+
+</body>
+
+</html>

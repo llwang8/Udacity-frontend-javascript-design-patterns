@@ -1,13 +1,51 @@
 
-
-
-
+body{
+    width: 100%;
+    margin-left: 15%;
+    margin-right: auto;
+}
+img {
+    width: 100%;
+    height: auto;
+    max-width: 100%
+    float: right;
+}
+.button {
+    background-color: #4CAF50;
+    border: 2px solid #e7e7e7;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 300px;
+}
+.button:hover{
+    background-color: #555555;
+}
+.button:active,
+.button:focus,
+.button.active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
 .center {
 	margin-top: 10px;
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 10px;
-    width: 66%;
+    width: 60%;
     border: 3px solid #73AD21;
     padding: 10px;
+    position: relative;
+    float: left;
+    display: block;
+}
+.row {
+    display: inline-block;
 }

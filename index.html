@@ -2,63 +2,110 @@
 
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-	<!-- Latest compiled and minified CSS 
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Cat Clicker</title>
+    <!-- Latest compiled and minified CSS
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
 
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
+    </script>
 
-	<!-- Latest compiled JavaScript 
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
-	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.32.min.js"></script>
+    <!-- Latest compiled JavaScript
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.32.min.js"></script>
 
-	<link rel="stylesheet" href="css/style.css">
-	
-	<script src="js/jQuery.js"></script>
+    <link rel="stylesheet" href="css/style.css">
 
-	<script type="text/javascript">
-	var count = 0;
-
-	function countClick(){
-	//$('#msg').click(function() {
-  	//the element has been clicked... do stuff here
-  		count ++;
-  		//alert(count);
-  		document.getElementById("msg").innerHTML = "Count: " + count;
-  		//document.getElementById("demo").innerHTML = "Count: " + count;
-  	}
-
-  	//function countClick(){
-  	//	var elem = document.getElementById('clickbtn');
-	//	elem.addEventListener('click', function(){
-  			//the element has been clicked... do stuff here
-  	//		count ++;
-  	//		document.getElementById("#msg").innerHTML = count;
-
-	//	}, false);
-
-	//}
-
-//});
-
-</script>
+    <script src="js/jQuery.js"></script>
 
 </head>
 
 <body>
 
-<div class="text-center center">
-	
-	<img id="cat" src="images/cat-staring.jpg" alt="cat" style="width:540px; height:406px"><br><br>
-	<div class="row">
-		<button id="clickbtn" type="button" class="btn btn-primary" onClick="countClick()">Click Me to Like Me!</button>
-		<p id="msg"></p>
-
-	</div>
+<div class="text-center">
+    <div class="row">
+        <div id="list" class="center"></div>
+        <div id="display" class="center"></div>
+    </div>
 </div>
 
+<script type="text/javascript">
+
+    $(function(){
+      var cats = [
+            {name: "Cat Peeking", img: "cat-halfshow.jpg", count: 0},
+            {name: "Cat Menacing", img: "cat-staring.jpg", count: 0},
+            {name: "Cat in-waiting", img: "cat-liedown.jpg", count: 0},
+            {name: "Cat Looking", img: "cat-looking.jpg", count: 0},
+            {name: "Cat in new home", img: "cat-newhome.jpg", count: 0},
+            {name: "Cat Bouncing", img: "cat-bounce.png", count: 0}
+          ];
+      var model = {
+        init: function(){},
+
+        addCat: function(catObj){
+          cats.push(catObj);
+        },
+
+        getAllCats: function(){
+          return cats;
+        }
+
+      };
+
+      var octopus = {
+        init: function(){
+          model.init();
+          view.init();
+        },
+
+        countClick: function(id){
+          var num = id;
+            var elem = document.getElementById(String(num));
+            if (elem){
+                elem.addEventListener('click', function(numCopy){
+                    count[numCopy] = count[numCopy] + 1 || 1;
+                    document.getElementById('catName' + numCopy).innerHTML = names[parseInt(numCopy) - 1];
+                    document.getElementById('msg' + numCopy).innerHTML = "Like: " + count[numCopy];
+                }(num));
+            }
+        },
+
+        getCat: function(n){
+          //return model.getAllCats()[n];
+          view.renderCatDetail(n);
+        }
+
+      };
+
+      var view = {
+        init: function(){
+          view.renderList();
+        },
+        renderList: function(){
+          var list = $('#list'),
+              catsList = "",
+              i,
+              cats = model.getAllCats();
+          console.log(JSON.stringify(cats));
+          for (i=0; i<cats.length; i++){
+            console.log(cats[i].name);
+            catsList += "<button id='"+ i +"' type='button' class='button' onClick=model.getCat(this.id)>" + cats[i].name
+                      + "</button>";
+          }
+          list.append(catsList);
+        },
+        renderCatDetail: function(n){
+
+        }
+      };
+
+      octopus.init();
+
+    });
+</script>
 
 
 </body>
