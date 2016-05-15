@@ -49,3 +49,13 @@ img {
 .row {
     display: inline-block;
 }
+
+ul {
+    list-style-type: square;
+    list-style-position: inside;
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+
+
