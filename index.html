@@ -32,6 +32,19 @@
             <div id="numClick"></div>
             <img id='catImage' src='' alt='cat' >
         </div>
+        <div  class="center">
+          <h3 id="admin">Administration</h3>
+          <form action="octopus.updateCat()" method=post>
+            <h4>Name: </h4>
+            <input type="text" name="name"><br>
+            <h4>Image: </h4>
+            <input type="text" name="image"><br>
+            <h4>Clicks: </h4>
+            <input type="text" name="numClick" display=hidden><br>
+            <input  type="reset" value="Cancel">
+            <input  type="submit" value="Submit">
+          </form>
+        </div>
     </div>
 </div>
 
@@ -58,10 +71,7 @@
           model.currentCat = model.cats[0];
           catsListView.init();
           catDetailView.init();
-        },
-
-        addCat: function(catObj){
-          model.cats.push(catObj);
+          formView.init();
         },
 
         getCats: function(){
@@ -78,17 +88,17 @@
 
         countClick: function(){
           model.currentCat.numClick++;
-          console.log("model.currentCat.numClick = " + model.currentCat.numClick);
+          catDetailView.render();
 
+        },
+
+        updateCat: function(){
           for (var i=0; i<model.cats.length; i++){
             var cat = model.cats[i];
             if (model.currentCat.name === cat.name){
               cat.numClick = model.currentCat.numClick;
-              console.log("model.cats[i].numClick: " + model.cats[i].numClick);
             }
           }
-
-          catDetailView.init();
         }
 
       };
@@ -102,7 +112,7 @@
         render: function(){
           var cat, i, elem,
               cats = octopus.getCats();
-          //console.log(JSON.stringify(cats));
+
           this.catsList.innerHTML = "";
           for (i=0; i<cats.length; i++){
               cat = cats[i];
@@ -122,7 +132,6 @@
 
       var catDetailView = {
           init: function(){
-            //this.catDetail = document.getElementById("catDetail");
             this.catName = document.getElementById("catName");
             this.catImage = document.getElementById("catImage");
             this.numClick = document.getElementById("numClick");
@@ -141,35 +150,28 @@
 
       };
 
+      var formView = {
+        init: function(){
+          this.formAdm = document.getElementById("admin");
+          this.formAdm.addEventListener('click', function(){
+            this.render();
+          });
+          this.formName = document.getElementById("name");
+          this.formImage = document.getElementById("image");
+          this.formNumClick = document.getElementById("numClick");
+        },
+
+        render: function(){
+          this.formName.textContent = model.getCurrentCat().name;
+          this.formImage.textContent = model.getCurrentCat().image;
+          this.formNumClick.textContent = model.getCurrentCat().numClick;
+        }
+
+      };
+
       octopus.init();
 
     });
-
-
-/*
-var cats = [
-            {name: "Cat Peeking", img: "cat-halfshow.jpg", count: 0},
-            {name: "Cat Menacing", img: "cat-staring.jpg", count: 0},
-            {name: "Cat in-waiting", img: "cat-liedown.jpg", count: 0},
-            {name: "Cat Looking", img: "cat-looking.jpg", count: 0},
-            {name: "Cat in new home", img: "cat-newhome.jpg", count: 0},
-            {name: "Cat Bouncing", img: "cat-bounce.png", count: 0}
-          ];
-
-renderList = function(){
-          var list = $('#list'),
-              catsList = "",
-              i;
-              //cats = model.getAllCats();
-          //console.log(JSON.stringify(cats));
-          for (i=0; i<cats.length; i++){
-            //console.log(cats[i].name);
-            catsList += "<button id='"+ i +"' type='button' class='button'
-                          onClick=octopus.getCat(this.id)>" + cats[i].name + "</button>";
-          }
-          list.append(catsList);
-        };
-*/
 
 </script>
 
