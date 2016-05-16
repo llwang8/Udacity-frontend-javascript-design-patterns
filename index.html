@@ -40,21 +40,24 @@
     $(function(){
 
       var model = {
-        currentCat: {},
+        currentCat: null,
         cats: [
             {name: "Cat Peeking", img: "images/cat-halfshow.jpg", numClick: 0},
             {name: "Cat Menacing", img: "images/cat-staring.jpg", numClick: 0},
             {name: "Cat in-waiting", img: "images/cat-liedown.jpg", numClick: 0},
             {name: "Cat Looking", img: "images/cat-looking.jpg", numClick: 0},
             {name: "Cat in new home", img: "images/cat-newhome.jpg", numClick: 0},
-            {name: "Cat Bouncing", img: "images/cat-bounce.png", numClick: 0}
+            {name: "Cat Bouncing", img: "images/cat-bounce.png", numClick: 0},
+            {name: "Cat Help with SAT", img: "images/cat-SATwork.jpg", numClick: 0}
           ]
       };
 
       var octopus = {
         init: function(){
+          //this.setCurrentCat(model.cats[0]);
           model.currentCat = model.cats[0];
-          view.init();
+          catsListView.init();
+          catDetailView.init();
         },
 
         addCat: function(catObj){
@@ -74,43 +77,30 @@
         },
 
         countClick: function(){
-          var cat = model.currentCat;
-          var count = cat.count++;
-          octopus.updateCount(count) ;
-          view.renderUpdatedClickCount();
-        },
+          model.currentCat.numClick++;
+          console.log("model.currentCat.numClick = " + model.currentCat.numClick);
 
-        updateCount: function(numCount){
-          model.currentCat.numClick = numCount;
           for (var i=0; i<model.cats.length; i++){
             var cat = model.cats[i];
             if (model.currentCat.name === cat.name){
-              cat.numClick = numCount;
+              cat.numClick = model.currentCat.numClick;
+              console.log("model.cats[i].numClick: " + model.cats[i].numClick);
             }
           }
+
+          catDetailView.init();
         }
 
       };
 
-      var view = {
+      var catsListView = {
         init: function(){
           this.catsList = document.getElementById("catsList");
-          this.renderList();
-
-          this.catDetail = document.getElementById("catDetail");
-          this.catName = document.getElementById("catName");
-          this.catImage = document.getElementById("catImage");
-          this.numClick = document.getElementById("numClick");
-          this.catImage.addEventListener('click', function(){
-              octopus.countClick();
-          });
-          this.renderCatDetail();
+          this.render();
         },
 
-        renderList: function(){
-          var cat,
-              i,
-              elem,
+        render: function(){
+          var cat, i, elem,
               cats = octopus.getCats();
           //console.log(JSON.stringify(cats));
           this.catsList.innerHTML = "";
@@ -120,25 +110,34 @@
               elem.textContent = cat.name;
               elem.addEventListener('click', (function(catCopy){
                 return function(){
-                  octopus.setCurrentCat(cat);
-                  view.renderCatDetail();
+                  octopus.setCurrentCat(catCopy);
+                  catDetailView.init();
                 };
               })(cat));
               this.catsList.appendChild(elem);
           }
-
-        },
-
-        renderCatDetail: function(){
-          var currentCat = octopus.getCurrentCat();
-          this.numClick.textContent = currentCat.numClick;
-          this.catName.textContent = currentCat.name;
-          this.catImage.src = currentCat.img;
-        },
-
-        renderUpdatedClickCount: function(count){
-            this.numClick.textContent = model.currentCat.numClick;
         }
+
+      };
+
+      var catDetailView = {
+          init: function(){
+            //this.catDetail = document.getElementById("catDetail");
+            this.catName = document.getElementById("catName");
+            this.catImage = document.getElementById("catImage");
+            this.numClick = document.getElementById("numClick");
+            this.catImage.addEventListener('click', function(){
+              octopus.countClick();
+            });
+            this.render();
+          },
+
+          render: function(){
+            var currentCat = octopus.getCurrentCat();
+            this.numClick.textContent = "Like: " + currentCat.numClick;
+            this.catName.textContent = currentCat.name;
+            this.catImage.src = currentCat.img;
+          }
 
       };
 
