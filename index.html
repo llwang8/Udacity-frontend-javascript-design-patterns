@@ -34,7 +34,7 @@
         </div>
         <div  class="center">
           <h3 id="admin">Administration</h3>
-          <form id="adminForm" action="index.htmoctopus.updateCat()" method=post style:display = hidden>
+          <form id="adminForm" action="index.htm/octopus.updateCat()" method=post style:display = "hidden">
             <h4>Name: </h4>
             <input type="text" name="name"><br>
             <h4>Image: </h4>
@@ -92,13 +92,17 @@
 
         },
 
-        updateCat: function(){
+        updateCat: function(name, image){
+          /*
           for (var i=0; i<model.cats.length; i++){
             var cat = model.cats[i];
             if (model.currentCat.name === cat.name){
               cat.numClick = model.currentCat.numClick;
             }
           }
+          */
+          model.currentCat.name = name;
+          model.currentCat.img = image;
         }
 
       };
@@ -153,13 +157,15 @@
       var formView = {
         init: function(){
           this.admin = document.getElementById("admin");
+          this.adminForm = document.getElementById("adminForm")
           this.admin.addEventListener('click', function(){
+            this.adminForm.style.display = "block";
             this.render();
           });
-          this.adminForm = document.getElementById("adminForm");
+          ;
           this.cancelAdm = document.getElementById("cancel");
           this.cancelAdm.addEventListener('click', function(){
-            this.adminForm.style.display = "none";
+            this.adminForm.style.display = "hidden";
           });
           this.submitAdm = document.getElementById("submit");
           this.submit.addEventListener('click', function(){
@@ -168,6 +174,14 @@
           this.formName = document.getElementById("name");
           this.formImage = document.getElementById("image");
           this.formNumClick = document.getElementById("numClick");
+
+          adminForm.submit(function(e){
+                octopus.updateCat(formName.val(), formImage.val());
+                formName.val('');
+                formImage.val('');
+                e.preventDefault();
+            });
+
         },
 
         render: function(){
